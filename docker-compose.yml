@@ -1,0 +1,26 @@
+version: '2'
+services:
+  phproxy:
+    build: build/
+    read_only: true
+    volumes:
+      - phproxy-var_run_apache2:/var/run/apache2:rw
+      - phproxy-var_lock_apache2:/var/lock/apache2:rw
+      - phproxy-tmp:/tmp:rw
+    ports:
+      - "8080:80"
+    networks:
+      - internet
+
+volumes:
+  phproxy-var_run_apache2:
+    driver: local
+  phproxy-var_lock_apache2:
+    driver: local
+  phproxy-tmp:
+    driver: local
+
+networks:
+  internet:
+    driver: bridge
+
